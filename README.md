@@ -73,4 +73,8 @@ categories:The category with ","
 The content will be here
 ```
 
+<<<<<<< HEAD
 ![La Tulip](https://github.com/hoathienvu8x/tulip/raw/master/tulip.jpg "La Tulip")
+=======
+[La Tulip](https://github.com/hoathienvu8x/tulip/raw/master/tulip.jpg)
+>>>>>>> 1e1bb72b934569d0c98eef6b9a5d3368c6a87f2e
