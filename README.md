@@ -73,4 +73,4 @@ categories:The category with ","
 The content will be here
 ```
 
-[La Tulip](https://raw.githubusercontent.com/hoathienvu8x/tulip/master/tulip.jpg)
+![La Tulip](https://github.com/hoathienvu8x/tulip/raw/master/tulip.jpg "La Tulip")
