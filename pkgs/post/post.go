@@ -3,8 +3,8 @@ package post
 import (
     "os"
     "log"
-    "bytes"
     "sort"
+    "bytes"
     "path/filepath"
     "html/template"
     "io/ioutil"
@@ -33,7 +33,7 @@ func New(fn string) (*Post, error) {
     }
     b = bytes.TrimPrefix(b, []byte("---\n"))
     arr := bytes.SplitN(b, []byte("\n---\n"), 2)
-    if len(arr) == 0 {
+    if len(arr) == 0 || len(arr) < 2 {
         return nil, errMissingFrontMaster
     }
     m, err := newMeta(string(arr[0]))
@@ -60,7 +60,9 @@ func GetPosts(postDir string) []*Post {
         if err != nil {
             log.Print(err)
         }
-        all = append(all, p)
+        if p != nil {
+            all = append(all, p)
+        }
     }
     sort.Slice(all, func(i, j int) bool {
         return all[i].Meta.Date.After(all[j].Meta.Date)
