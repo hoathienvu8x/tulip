@@ -5,6 +5,7 @@ import (
     "log"
     "sort"
     "bytes"
+    "regexp"
     "path/filepath"
     "html/template"
     "io/ioutil"
@@ -14,6 +15,7 @@ import (
 
 type Post struct {
     *Meta
+    Image *string
     Slug string
     Content template.HTML
 }
@@ -41,10 +43,12 @@ func New(fn string) (*Post, error) {
         return nil, err
     }
     body := blackfriday.MarkdownCommon(arr[1])
+    htmlBody := template.HTML(body)
     p := &Post{
         m,
+        findFirstImag(htmlBody),
         slug.Make(m.Title),
-        template.HTML(body),
+        htmlBody,
     }
     return p, nil
 }
@@ -68,4 +72,17 @@ func GetPosts(postDir string) []*Post {
         return all[i].Meta.Date.After(all[j].Meta.Date)
     })
     return all
+}
+
+func findFirstImag(html template.HTML) *string {
+    if len(html) == 0 {
+        return nil
+    }
+    re := regexp.MustCompile(`<img[^>]+\bsrc=["']([^"']+)["']`)
+    imgTags := re.FindAllStringSubmatch(string(html),1)
+    if len(imgTags) == 0 {
+        return nil
+    }
+    img := imgTags[0][1]
+    return &img
 }
