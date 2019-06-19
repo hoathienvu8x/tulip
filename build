@@ -1,0 +1,43 @@
+#!/bin/bash
+
+SRCDIR=`pwd`/tmpl
+DESTDIR=`pwd`/templates
+
+if [ ! -d "$SRCDIR" ]; then
+    echo "No template"
+    exit
+fi
+
+if [ ! -d "$DESTDIR" ]; then
+    mkdir -p $DESTDIR
+else
+    rm -rf $DESTDIR/*
+fi
+
+function min_file() {
+    sed -i ':a;N;ba;s/\n//g' $1
+    sed -i 's/\t/ /g' $1
+    sed -i 's/    //g' $1
+    sed -i 's/\*/\\\*/g' $1
+    echo -n $(cat $1) > $1
+    sed -i 's/\\\*/\*/g' $1
+}
+
+for file in `find $SRCDIR/ -name "*.html"`; do
+    if [[ $(du -k "$file" | cut -f 1) -ne 0 ]]; then
+        newfile=`basename $file`
+        echo "Copy $file to $DESTDIR/$newfile"
+        cp -rf $file $DESTDIR/$newfile
+        min_file "$DESTDIR/$newfile"
+        echo " -> Done"
+    else
+        echo "File $file is empty content"
+    fi
+done
+
+export TULIP_PORT=9600
+
+go clean
+
+go run tulip.go
+exit
