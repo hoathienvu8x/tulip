@@ -47,3 +47,22 @@ need to add prefix `TULIP_` before the name of options.
 | STATICDIR | "static"    |
 | RELATIVE  | true        |
 | MAXPOSTS  | 5           |
+
+## Write a post ##
+
+To write a post you must create `*.md` file with struct and save to posts folder
+
+
+```
+---
+title:The title
+excerpt:The excerpt
+date:2019-06-18 15:02:00
+author:The author
+tags:the tag with ","
+categories:The category with ","
+---
+
+The content will be here
+```
+
