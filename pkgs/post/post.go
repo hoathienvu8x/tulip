@@ -73,13 +73,13 @@ func GetPosts(postDir string) []*Post {
     })
     return all
 }
-
+// https://stackoverflow.com/a/36966144
 func findFirstImag(html template.HTML) *string {
     if len(html) == 0 {
         return nil
     }
     re := regexp.MustCompile(`<img[^>]+\bsrc=["']([^"']+)["']`)
-    imgTags := re.FindAllStringSubmatch(string(html),1)
+    imgTags := re.FindAllStringSubmatch(string(html),1) // https://stackoverflow.com/a/44847651
     if len(imgTags) == 0 {
         return nil
     }
