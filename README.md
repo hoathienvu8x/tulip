@@ -3,6 +3,13 @@ Simple Tulip blog markdown with golang
 
 That is simple blog markdown with golang. Not smart and clean code.
 
+## Requirements ##
+
+```shell
+go get github.com/julienschmidt/httprouter
+go get github.com/russross/blackfriday
+```
+
 ## Installation ##
 
 To install this repository using command
