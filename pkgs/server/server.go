@@ -2,7 +2,8 @@ package server
 
 import (
     "os"
-    "strconv"    
+    "strings"
+    "strconv"  
     "net/http"
     "path/filepath"
     "tulip/pkgs/post"
@@ -26,6 +27,7 @@ func init() {
     if !ok {
         port = "9600"
     }
+    port = strings.Trim(port, ":")
     templateDir, ok = os.LookupEnv("TULIP_TEMPDIR")
     if !ok {
         templateDir = "templates"
@@ -67,6 +69,7 @@ func newRouter() *httprouter.Router {
     r.GET("/post/:title", ReadPost)
     r.GET("/about", About)
     r.GET("/tag/:name/:page", ByTag)
+    r.GET("/category/:name/:page", ByCat)
     r.ServeFiles("/static/*filepath", http.Dir(staticDir))
     return r
 }
@@ -74,7 +77,7 @@ func newRouter() *httprouter.Router {
 func New() *http.Server {
     r := newRouter()
     return &http.Server{
-        Addr : port,
+        Addr : ":"+port,
         Handler : r,
     }
 }

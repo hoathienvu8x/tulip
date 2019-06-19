@@ -63,3 +63,15 @@ func ByTag(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
         log.Fatal(err)
     }
 }
+
+func ByCat(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+    p, err := strconv.ParseUint(ps.ByName("page"), 10,8)
+    if err != nil {
+        p = 1
+    }
+    data := newByCatData(uint8(p), ps.ByName("name"))
+    err = t.ExecuteTemplate(w, "category", data)
+    if err != nil {
+        log.Fatal(err)
+    }
+}

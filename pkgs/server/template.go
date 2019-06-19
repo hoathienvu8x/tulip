@@ -2,10 +2,10 @@ package server
 
 import (
     "fmt"
-    "html/template"
     "log"
     "math"
     "path/filepath"
+    "html/template"
     "tulip/pkgs/post"
 )
 
@@ -37,6 +37,7 @@ func newPageData(n uint8) (*PageData, error) {
     }
     pd.PageNow = n
     s := maxPost * (n - 1)
+    fmt.Println(all,s)
     pd.Posts = all[s:]
     f := maxPost * n
     if f < uint8(len(all)) {
@@ -78,12 +79,47 @@ type ByTagData struct {
 func newByTagData(n uint8, tag string) *ByTagData {
     pd := new(ByTagData)
     pd.Tag = tag
-OUTER:
+TOUTER:
     for _, p := range all {
         for _, t := range p.Tag {
             if tag == t {
                 pd.Posts = append(pd.Posts, p)
-                continue OUTER
+                continue TOUTER
+            }
+        }
+    }
+    if len(pd.Posts) == 0 {
+        pd.PageNow = 1
+        pd.PageMax = 1
+        return pd
+    }
+    pd.PageNow = n
+    pd.PageMax = uint8(math.Ceil(float64(len(pd.Posts)) / float64(maxPost)))
+    s := maxPost * (n - 1)
+    pd.Posts = pd.Posts[s:]
+    f := maxPost * n
+    if f < uint8(len(pd.Posts)) {
+        pd.Posts = pd.Posts[s:f]
+    }
+    return pd
+}
+
+type ByCatData struct {
+    PageNow uint8
+    PageMax uint8
+    Category string
+    Posts []*post.Post
+}
+
+func newByCatData(n uint8, cat string) *ByCatData {
+    pd := new(ByCatData)
+    pd.Category = cat
+COUTER:
+    for _, p := range all {
+        for _, c := range p.Category {
+            if cat == c {
+                pd.Posts = append(pd.Posts, p)
+                continue COUTER
             }
         }
     }
