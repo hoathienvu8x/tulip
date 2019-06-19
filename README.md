@@ -47,7 +47,7 @@ need to add prefix `TULIP_` before the name of options.
 
 | Option    | Default     |
 |-----------|-------------|
-| PORT      | ":8080"     |
+| PORT      | ":9600"     |
 | BASEDIR   | $PWD        |
 | POSTDIR   | "posts"     |
 | TEMPLDIR  | "templates" |
