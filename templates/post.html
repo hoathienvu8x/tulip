@@ -1,6 +1,9 @@
 {{ define "post" }}
 {{ template "header" }}
 <a href="/"><-Back to Home</a>
+{{ if .Post.Image }}
+    <img src="{{.Post.Image}}" />
+{{ end }}
 <section>
 	<h1>{{ .Post.Meta.Title }}</h1>
 	<h6>{{ .Post.Meta.Date.Format "January 2, 2006" }}</h6>

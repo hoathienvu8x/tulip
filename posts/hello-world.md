@@ -6,3 +6,5 @@ author:Tran Ngoc Nhat
 tags:hello,world
 categories:beginner
 ---
+
+![La Tulip](https://github.com/hoathienvu8x/tulip/raw/master/tulip.jpg "La Tulip")
