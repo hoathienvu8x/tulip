@@ -2,8 +2,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" />
     <title>Example</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        body {
+            background: #ddd;
+            color: #666;
+            font-size: 14px;
+            font-family: "-apple-system","Open Sans","HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,sans-serif;
+        }
+        a {
+            color: #2479cc;
+            text-decoration: none;
+        }
+        .aside {
+            background-color: #50514c;
+            height: 100%;
+            position: fixed;
+            width: 270px;
+        }
+        @media screen and (max-width: 640px)
+            .aside {
+                background-image: none;
+                position: relative;
+                width: 100%;
+            }
+            .main {
+                float: none;
+                margin-left: 0;
+                width: 100%;
+            }
+            .primary {
+                padding: 0 10px;
+            }
+        }
+        @media screen and (max-width: 1024px) {
+            .primary {
+                padding: 0 20px;
+            }
+            .main {
+                margin-left: 210px;
+            }
+        }
+        .main {
+            background: #fff;
+            left: 0;
+            margin-left: 270px;
+            min-height: 100%;
+            position: absolute;
+            right: 0;
+        }
+        .primary {
+            padding: 0 70px 0 40px;
+        }
+        .content {
+            margin: 0 auto;
+            width: 100%;
+        }
+        .footer {
+            font-size: .9em;
+            line-height: 2.2;
+            padding: 15px 70px 15px 40px;
+            text-align: center;
+            width: auto;
+        }
+        .footer a {
+            color: #666;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <div class="aside"></div>
+    <div class="main">
+        <div class="primary">
+            <div class="content">
 {{ end }}
