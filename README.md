@@ -8,6 +8,8 @@ That is simple blog markdown with golang. Not smart and clean code.
 ```shell
 go get github.com/julienschmidt/httprouter
 go get github.com/russross/blackfriday
+go get github.com/sourcegraph/syntaxhighlight
+go get github.com/PuerkitoBio/goquery
 ```
 
 ## Installation ##
@@ -72,5 +74,9 @@ categories:The category with ","
 
 The content will be here
 ```
+
+## Links ##
+
+[Zupzup.Org Documentation syntax highlight](https://zupzup.org/go-markdown-syntax-highlight/)
 
 ![La Tulip](https://github.com/hoathienvu8x/tulip/raw/master/tulip.jpg "La Tulip")
