@@ -5,12 +5,15 @@ import (
     "log"
     "sort"
     "bytes"
+    "strings"
     "regexp"
     "path/filepath"
     "html/template"
     "io/ioutil"
     "tulip/pkgs/slug"
+    "github.com/PuerkitoBio/goquery"
     "github.com/russross/blackfriday"
+    "github.com/sourcegraph/syntaxhighlight"
 )
 
 type Post struct {
@@ -43,6 +46,10 @@ func New(fn string) (*Post, error) {
         return nil, err
     }
     body := blackfriday.MarkdownCommon(arr[1])
+    nbody, err := replaceCodeParts(body)
+    if err == nil {
+        body = []byte(nbody)
+    }
     htmlBody := template.HTML(body)
     p := &Post{
         m,
@@ -85,4 +92,26 @@ func findFirstImag(html template.HTML) *string {
     }
     img := imgTags[0][1]
     return &img
+}
+
+func replaceCodeParts(mdFile []byte) (string, error) {
+    doc, err := goquery.NewDocumentFromReader(bytes.NewReader(mdFile))
+    if err != nil {
+        return "", err
+    }
+    doc.Find("code[class*=\"language-\"]").Each(func(i int, s *goquery.Selection) {
+        oldCode := s.Text()
+        formatted, err := syntaxhighlight.AsHTML([]byte(oldCode))
+        if err != nil {
+            log.Fatal(err)
+        }
+        s.SetHtml(string(formatted))
+    })
+    new, err := doc.Html()
+    if err != nil {
+        return "", err
+    }
+    new = strings.Replace(new, "<html><head></head><body>", "", 1)
+    new = strings.Replace(new, "</body></html>", "", 1)
+    return new, nil
 }
