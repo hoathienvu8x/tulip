@@ -54,7 +54,7 @@ func newMeta(t string) (*Meta, error) {
         }
         key := strings.TrimSpace(val[0])
         value := val[1:]
-        args[key] = strings.Join(value[:],":")
+        args[key] = strings.TrimSpace(strings.Join(value[:],":"))
     }
     if _, ok := args["title"]; !ok {
         return nil, errors.New("Title meta missing")
@@ -82,12 +82,18 @@ func newMeta(t string) (*Meta, error) {
         tags = strings.TrimSpace(tags)
         if len(tags) > 0 {
             m.Tag = strings.Split(tags, ",")
+            for i := range m.Tag {
+                m.Tag[i] = strings.TrimSpace(m.Tag[i])
+            }
         }
     }
     if categories, ok := args["categories"]; ok {
         categories = strings.TrimSpace(categories)
         if len(categories) > 0 {
             m.Category = strings.Split(categories, ",")
+            for i := range m.Category {
+                m.Category[i] = strings.TrimSpace(m.Category[i])
+            }
         }
     }
     return m, nil

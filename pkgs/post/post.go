@@ -46,10 +46,10 @@ func New(fn string) (*Post, error) {
         return nil, err
     }
     body := blackfriday.MarkdownCommon(arr[1])
-    nbody, err := replaceCodeParts(body)
+    /*nbody, err := replaceCodeParts(body)
     if err == nil {
         body = []byte(nbody)
-    }
+    }*/
     htmlBody := template.HTML(body)
     p := &Post{
         m,
