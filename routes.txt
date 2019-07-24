@@ -1,0 +1,174 @@
+        // sitemap_index\.xml$ index.php?sitemap=1
+        Route{
+            Pattern:"sitemap_index\\.xml$",
+            Params:[]string{"sitemap"},
+            Controller: DisplaySiteMapHandle,
+        },
+        // ([^/]+?)-sitemap([0-9]+)?\.xml$ index.php?sitemap=$matches[1]&sitemap_n=$matches[2]
+        Route{
+            Pattern:"([^/]+?)-sitemap([0-9]+)?\\.xml$",
+            Params:[]string{"sitemap","sitemap_n"},
+            Controller: DisplaySiteMapHandle,
+        },
+        // category/(.+?)/(feed|rdf|rss|rss2|atom)/?$ index.php?category_name=$matches[1]&feed=$matches[2]
+        Route{
+            Pattern:"category/(.+?)/(feed|rss|atom)/?$",
+            Params:[]string{"name","feed"},
+            Controller: DisplayCategoryHandle,
+        },
+        // category/(.+?)/page/?([0-9]{1,})/?$ index.php?category_name=$matches[1]&paged=$matches[2]
+        Route{
+            Pattern:"category/(.+?)/page/?([0-9]{1,})/?$",
+            Params:[]string{"name","paged"},
+            Controller: DisplayCategoryHandle,
+        },
+        // category/(.+?)/?$ index.php?category_name=$matches[1]
+        Route{
+            Pattern:"category/(.+?)/?$",
+            Params:[]string{"name"},
+            Controller: DisplayCategoryHandle,
+        },
+        // tag/([^/]+)/(feed|rdf|rss|rss2|atom)/?$ index.php?tag=$matches[1]&feed=$matches[2]
+        Route{
+            Pattern:"tag/([^/]+)/(feed|rss|atom)/?$",
+            Params:[]string{"name","feed"},
+            Controller: DisplayTagHandle,
+        },
+        // tag/([^/]+)/page/?([0-9]{1,})/?$ index.php?tag=$matches[1]&paged=$matches[2]
+        Route{
+            Pattern:"tag/([^/]+)/page/?([0-9]{1,})/?$",
+            Params:[]string{"name","paged"},
+            Controller: DisplayTagHandle,
+        },
+        // tag/([^/]+)/?$ index.php?tag=$matches[1]
+        Route{
+            Pattern:"tag/([^/]+)/?$",
+            Params:[]string{"name"},
+            Controller: DisplayTagHandle,
+        },
+        // (feed|rdf|rss|rss2|atom)/?$ index.php?&feed=$matches[1]
+        Route{
+            Pattern:"(feed|rss|atom)/?$",
+            Params:[]string{"feed"},
+            Controller: DisplayHomePageHandle,
+        },
+        // page/?([0-9]{1,})/?$ index.php?&paged=$matches[1]
+        Route{
+            Pattern:"page/?([0-9]{1,})/?$",
+            Params:[]string{"paged"},
+            Controller: DisplayHomePageHandle,
+        },
+        // search/(.+)/(feed|rdf|rss|rss2|atom)/?$ index.php?s=$matches[1]&feed=$matches[2]
+        Route{
+            Pattern:"search/(.+)/(feed|rss|atom)/?$",
+            Params:[]string{"s","feed"},
+            Controller: DisplayHomePageHandle,
+        },
+        // search/(.+)/page/?([0-9]{1,})/?$ index.php?s=$matches[1]&paged=$matches[2]
+        Route{
+            Pattern:"search/(.+)/page/?([0-9]{1,})/?$",
+            Params:[]string{"s","paged"},
+            Controller: DisplayHomePageHandle,
+        },
+        // search/(.+)/?$ index.php?s=$matches[1]
+        Route{
+            Pattern:"search/(.+)/?$",
+            Params:[]string{"s"},
+            Controller: DisplayHomePageHandle,
+        },
+        // ([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$ index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&feed=$matches[4]
+        Route{
+            Pattern:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/(feed|rss|atom)/?$",
+            Params:[]string{"year","monthnum","day","feed"},
+            Controller: DisplayArchiveHandle,
+        },
+        // ([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/page/?([0-9]{1,})/?$ index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&paged=$matches[4]
+        Route{
+            Pattern:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/page/?([0-9]{1,})/?$",
+            Params:[]string{"year","monthnum","day","paged"},
+            Controller: DisplayArchiveHandle,
+        },
+        // ([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/?$ index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]
+        Route{
+            Pattern:"([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/?$",
+            Params:[]string{"year","monthnum","day"},
+            Controller: DisplayArchiveHandle,
+        },
+        // ([0-9]{4})/([0-9]{1,2})/(feed|rdf|rss|rss2|atom)/?$ index.php?year=$matches[1]&monthnum=$matches[2]&feed=$matches[3]
+        Route{
+            Pattern:"([0-9]{4})/([0-9]{1,2})/(feed|rss|atom)/?$",
+            Params:[]string{"year","monthnum","feed"},
+            Controller: DisplayArchiveHandle,
+        },
+        // ([0-9]{4})/([0-9]{1,2})/page/?([0-9]{1,})/?$ index.php?year=$matches[1]&monthnum=$matches[2]&paged=$matches[3]
+        Route{
+            Pattern:"([0-9]{4})/([0-9]{1,2})/page/?([0-9]{1,})/?$",
+            Params:[]string{"year","monthnum","paged"},
+            Controller: DisplayArchiveHandle,
+        },
+        // ([0-9]{4})/([0-9]{1,2})/?$ index.php?year=$matches[1]&monthnum=$matches[2]
+        Route{
+            Pattern:"([0-9]{4})/([0-9]{1,2})/?$",
+            Params:[]string{"year","monthnum"},
+            Controller: DisplayArchiveHandle,
+        },
+        // ([0-9]{4})/(feed|rdf|rss|rss2|atom)/?$ index.php?year=$matches[1]&feed=$matches[2]
+        Route{
+            Pattern:"([0-9]{4})/(feed|rss|atom)/?$",
+            Params:[]string{"year","feed"},
+            Controller: DisplayArchiveHandle,
+        },
+        // ([0-9]{4})/page/?([0-9]{1,})/?$ index.php?year=$matches[1]&paged=$matches[2]
+        Route{
+            Pattern:"([0-9]{4})/page/?([0-9]{1,})/?$",
+            Params:[]string{"year","paged"},
+            Controller: DisplayArchiveHandle,
+        },
+        // ([0-9]{4})/?$ index.php?year=$matches[1]
+        Route{
+            Pattern:"([0-9]{4})/?$",
+            Params:[]string{"year"},
+            Controller: DisplayArchiveHandle,
+        },
+        // (.?.+?)/(feed|rdf|rss|rss2|atom)/?$ index.php?pagename=$matches[1]&feed=$matches[2]
+        Route{
+            Pattern:"(.?.+?)/(feed|rss|atom)/?$",
+            Params:[]string{"name","feed"},
+            Controller: DisplayPageHandle,
+        },
+        // (.?.+?)/page/?([0-9]{1,})/?$ index.php?pagename=$matches[1]&paged=$matches[2]
+        Route{
+            Pattern:"(.?.+?)/page/?([0-9]{1,})/?$",
+            Params:[]string{"name","paged"},
+            Controller: DisplayPageHandle,
+        },
+        // (.?.+?)(?:/([0-9]+))?/?$ index.php?pagename=$matches[1]&page=$matches[2]
+        Route{
+            Pattern:"(.?.+?)(?:/([0-9]+))?/?$",
+            Params:[]string{"name","page"},
+            Controller: DisplayPageHandle,
+        },
+        // ([^/]+)/(feed|rdf|rss|rss2|atom)/?$ index.php?name=$matches[1]&feed=$matches[2]
+        Route{
+            Pattern:"([^/]+)/(feed|rss|atom)/?$",
+            Params:[]string{"name","feed"},
+            Controller: DisplayPostHandle,
+        },
+        // ([^/]+)/page/?([0-9]{1,})/?$ index.php?name=$matches[1]&paged=$matches[2]
+        Route{
+            Pattern:"([^/]+)/page/?([0-9]{1,})/?$",
+            Params:[]string{"name","paged"},
+            Controller: DisplayPostHandle,
+        },
+        // ([^/]+)/amp(/(.*))?/?$ index.php?name=$matches[1]&amp=$matches[3]
+        Route{
+            Pattern:"([^/]+)/amp(/(.*))?/?$",
+            Params:[]string{"name","amp"},
+            Controller: DisplayPostHandle,
+        },
+        // ([^/]+)(?:/([0-9]+))?/?$ index.php?name=$matches[1]&page=$matches[2]
+        Route{
+            Pattern:"([^/]+)(?:/([0-9]+))?/?$",
+            Params:[]string{"name","page"},
+            Controller: DisplayPostHandle,
+        },
