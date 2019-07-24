@@ -8,6 +8,21 @@ foreach($all as $i => $r) {
     if (preg_match('/feed\//i',$r)) {
         continue;
     }
+    $aa = $r;
+    $ctl = 'DisplayHomePageHandle';
+    if (preg_match('/\?year=/i',$r)) {
+        $ctl = 'DisplayArchiveHandle';
+    } else if (preg_match('/\?pagename=/',$r)) {
+        $ctl = 'DisplayPageHandle';
+    } else if (preg_match('/\?name=/',$r)) {
+        $ctl = 'DisplayPostHandle';
+    } else if (preg_match('/\?tag=/',$r)) {
+        $ctl = 'DisplayTagHandle';
+    } else if (preg_match('/\?category_name=/',$r)) { 
+        $ctl = 'DisplayCategoryHandle';
+    } else if (preg_match('/sitemap/',$r)) {
+        $ctl = 'DisplaySiteMapHandle';
+    }
     $r = str_replace('(feed|rdf|rss|rss2|atom)','(feed|rss|atom)',$r);
     $r = str_replace('category_name','name',$r);
     $r = str_replace('?tag=','?name=',$r);
@@ -21,14 +36,15 @@ foreach($all as $i => $r) {
         $x[1][] = $v[0];
     }
     //$all[$i] = $x;
-    $x[] = $r;
+    $x[] = $aa;
+    $x[] = $ctl;
     $rules[] = $x;
 }
 
 //foreach($all as $a) {
 foreach($rules as $a) {
     $a[0] = str_replace('\\.', '\\\\.', $a[0]);
-    echo "        // ".$x[2]."\n        Route{\n            Pattern:\"".$a[0]."\",\n            Params:[]string{\"".implode('","', $a[1])."\"},\n            Controller: DisplayArchiveAllPosts,\n        },\n";
+    echo "        // ".trim($a[2])."\n        Route{\n            Pattern:\"".$a[0]."\",\n            Params:[]string{\"".implode('","', $a[1])."\"},\n            Controller: ".$a[3].",\n        },\n";
 }
 
 //print_r($all);
