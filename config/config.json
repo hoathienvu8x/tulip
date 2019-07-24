@@ -1,0 +1,10 @@
+{
+    "server":{
+        "uri":"http://localhost:8890",
+        "port":8890,
+        "root":"./public",
+        "base":".",
+        "maxpost":5,
+        "relative":false
+    }
+}

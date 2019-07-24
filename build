@@ -21,11 +21,15 @@ function min_file() {
     sed -i 's/\*/\\\*/g' $1
     echo -n $(cat $1) > $1
     sed -i 's/\\\*/\*/g' $1
+    sed -i 's/> {/>{/g' $1
+    sed -i 's/} {/}{/g' $1
+    sed -i 's/> </></g' $1
 }
 
 for file in `find $SRCDIR/ -name "*.html"`; do
     if [[ $(du -k "$file" | cut -f 1) -ne 0 ]]; then
         newfile=`basename $file`
+        newfile="${newfile%.*}.ghtml"
         echo "Copy $file to $DESTDIR/$newfile"
         cp -rf $file $DESTDIR/$newfile
         min_file "$DESTDIR/$newfile"

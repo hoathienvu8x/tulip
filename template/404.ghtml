@@ -1,0 +1,1 @@
+{{ define "404" }}{{ template "header" }} <a href="/"><-Back to Home</a>{{ template "footer" }}{{ end }}
