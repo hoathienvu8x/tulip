@@ -3,25 +3,32 @@ package main
 import (
     "os"
     "log"
-    "time"
-    "strings"
-    "context"
-    "os/signal"
+    "runtime"
+    "encoding/json"
+    cfg "tulip/pkgs/config"
     engine "tulip/pkgs/server"
 )
 
-func main() {
-    stop := make(chan os.Signal)
-    signal.Notify(stop, os.Interrupt)
-    app := engine.New()
-    go func() {
-        log.Println("Listening to port :" + strings.Trim(app.Addr,":"))
-        log.Fatal(app.ListenAndServe())
-    }()
-    <- stop
-    ctx, _ := context.WithTimeout(context.Background(), 5 * time.Second)
-    log.Println("Shutting down the server...")
-    app.Shutdown(ctx)
-    log.Println("Server stopped.")
+var config = &Configuration{}
+
+type Configuration struct {
+    Server engine.Server
 }
-//http://www.guyrutenberg.com/2008/10/02/retrieving-googles-cache-for-a-whole-website/ + https://gist.github.com/minhajuddin/1504425
+
+func init() {
+	log.SetFlags(log.Lshortfile)
+	runtime.GOMAXPROCS(runtime.NumCPU())
+}
+
+func main() {
+    rootDir, err := os.Getwd()
+	if err != nil {
+		log.Fatalln(err)
+	}
+    cfg.Load(rootDir + string(os.PathSeparator) + "config" + string(os.PathSeparator) + "config.json", config)
+    engine.Run(config.Server)
+}
+
+func (c *Configuration) ParseJSON(b []byte) error {
+	return json.Unmarshal(b, &c)
+}

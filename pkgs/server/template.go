@@ -14,13 +14,13 @@ var (
     funcMaps template.FuncMap
 )
 
-func init() {
+func initTemplate() {
     funcMaps = template.FuncMap{
         "inc" : func(i uint8) uint8 { return i + 1 },
         "dec" : func(i uint8) uint8 { return i - 1 },
     }
     t = template.New("tulip").Funcs(funcMaps)
-    template.Must(t.ParseGlob(filepath.Join(templateDir, "*")))
+    template.Must(t.ParseGlob(filepath.Join(templateDir, "*.ghtml")))
 }
 
 type PageData struct {
